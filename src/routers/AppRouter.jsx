@@ -11,6 +11,9 @@ export default () => (
             <Header />
             <Switch>
                 <Route exact component={Books} path={'/'} />
+                <Route exact component={Books} path={'/'} />
+                <Route exact component={Books} path={'/'} />
+                <Route exact component={Books} path={'/'} />
             </Switch>
             <AppMenu/>
         </Layout>
