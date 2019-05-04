@@ -1,10 +1,10 @@
 import axios from 'axios';
 import config from '../consts';
 
-const config = config.server.api
+const configs = config.server.api
 
-axios.defaults.baseURL = config.url;
-axios.defaults.timeout = config.timeout;
+axios.defaults.baseURL = configs.url;
+axios.defaults.timeout = configs.timeout;
 
 axios.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
   let config = err.config;
@@ -84,7 +84,3 @@ export default async config => {
     }
   }
 };
-
-export default async (config) => {
-
-}

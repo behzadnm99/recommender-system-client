@@ -1,8 +1,32 @@
 .app-header {
     background-color: #ffffff;
+    display: flex;
+    padding: 0 336px;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
     border: 1px solid rgb(238, 238, 238);
     .header-text {
         color: #111;
         font-weight: 700;
+    }
+}
+
+.login-modal {
+    .ant-modal-content {
+        .ant-modal-body {
+            .ant-modal-confirm-body-wrapper {
+                .ant-modal-confirm-btns {
+                    display: flex;
+                    flex-direction: column-reverse;
+                    float: unset;
+                    button {
+                        margin-left: 0px;
+                        margin-right: 0px;
+                        margin-top: 12px;
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,3 +1,5 @@
+@import './antd-rtl.css';
+
 .App {
   text-align: center;
   height: 100%;
@@ -30,6 +32,19 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.ant-modal-confirm .ant-modal-confirm-btns {
+  direction: ltr;
+}
+
+.ant-modal-confirm-body > .anticon + .ant-modal-confirm-title + .ant-modal-confirm-content {
+  margin-right: unset;
+  margin-top: 16px
+}
+
+.ant-btn {
+  font-size: medium !important;
 }
 
 @keyframes App-logo-spin {
