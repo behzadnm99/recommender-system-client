@@ -1,0 +1,26 @@
+.upload-tabs {
+    display: flex;
+    * {
+        background-color: #fff;
+        border-radius: 4px
+    }
+
+   .ant-tabs-right-bar {
+        width: 320px !important;
+    }
+
+    .ant-tabs .ant-tabs-right-bar {
+        margin-right: 0px !important;
+    }
+
+    .ant-tabs-right-content {
+        width: 100%;
+        margin-right: 24px;
+    }
+    .upload-book {
+
+    }
+    .upload-movie{
+
+    }
+}

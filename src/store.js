@@ -14,7 +14,7 @@ export default createStore(
         forms: combineReducers({
             login: loginReducers,
             signup: signupReducers
-        }),
+        })
     }),
     applyMiddleware(...middleware)
 )

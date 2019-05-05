@@ -32,14 +32,16 @@ class Login extends Component {
         return(
             <div>
               <Form onSubmit={this.handleSubmit} className="login-form">
-                <Form.Item>
+                <Form.Item
+                  label="نام کاربری">
                     {getFieldDecorator('username', {
                     rules: [{ required: true, message: 'لطفا نام کاربری خود را وارد کنید.' }],
                     })(
                         <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="نام کاربری" />
                     )}
                 </Form.Item>
-                <Form.Item>
+                <Form.Item
+                  label="رمز عبور">
                   {getFieldDecorator('password', {
                     rules: [{ required: true, message: 'لطفا رمز عبور خود را وارد کنید.' }],
                   })(
