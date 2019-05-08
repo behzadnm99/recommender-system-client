@@ -1,5 +1,9 @@
 .app-menu {
     border: 1px solid rgb(238, 238, 238);
     display: flex;
+    position: fixed;
+    z-index: 120;
+    bottom: 0;
+    width: 100%;
     justify-content: center;
 }

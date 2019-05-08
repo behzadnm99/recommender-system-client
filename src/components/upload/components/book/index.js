@@ -1,10 +1,14 @@
 import React,{Component} from 'react';
 import './index.scss'
-import { Form, Icon, Input, Button, Slider } from 'antd';
+import { Form, Icon, Input, Button, Slider, Upload } from 'antd';
 
 const { TextArea } = Input;
 
 class Book extends Component {
+
+    componentDidMount() {
+
+    }
 
     handleSubmit = (e) => {
       e.preventDefault();
@@ -71,6 +75,24 @@ class Book extends Component {
                         })(
                           <Input prefix={<Icon type="book" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="ژانر کتاب" />
                         )}
+                      </Form.Item>
+                      <Form.Item
+                        label="Dragger"
+                      >
+                        <div className="dropbox">
+                          {getFieldDecorator('dragger', {
+                            valuePropName: 'fileList',
+                            getValueFromEvent: this.normFile,
+                          })(
+                            <Upload.Dragger name="files" action="/upload.do">
+                              <p className="ant-upload-drag-icon">
+                                <Icon type="inbox" />
+                              </p>
+                              <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                              <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+                            </Upload.Dragger>
+                          )}
+                        </div>
                       </Form.Item>
                       <Form.Item>
                         <Button

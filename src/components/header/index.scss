@@ -1,5 +1,8 @@
 .app-header {
     background-color: #ffffff;
+    position: fixed;
+    z-index: 100;
+    width: 100%;
     display: flex;
     padding: 0 36px;
     flex-direction: row-reverse;

@@ -10,7 +10,7 @@
 }
 
 .app-layout {
-  height: 100%;
+  height: fit-content;
 }
 
 .main-row {
@@ -47,6 +47,11 @@
 
 .ant-input-affix-wrapper .ant-input-prefix {
   left: unset !important;
+}
+
+.main-column {
+  padding-bottom: 96px;
+  padding-top: 96px;
 }
 
 @keyframes App-logo-spin {

@@ -11,7 +11,7 @@ export default () => (
         <Layout className="app-layout">
             <Header />
             <Row className="main-row" type="flex" justify="center">
-                <Col style={{paddingTop: 64}} lg={16} xl={16} md={20}  xs={22} sm={22}>
+                <Col className="main-column" style={{paddingTop: 96,  }} lg={16} xl={16} md={20}  xs={22} sm={22}>
                     <Switch>
                         <Route exact component={Books} path={'/'} />
                         <Route exact component={Upload} path={'/upload/:tab'} />
