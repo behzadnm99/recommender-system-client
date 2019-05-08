@@ -6,11 +6,20 @@ import './index.scss';
 
 const TabPane = Tabs.TabPane;
 
+const TabHeader = () => {
+    return (
+        <div className="tab-header">
+            معرفی پیشنهاد جدید
+        </div>
+        )
+}
+
 class Upload extends Component {
     render() {
         return(
             <div>
                 <Tabs
+                    tabBarExtraContent={<TabHeader/>}
                     className="upload-tabs"
                     tabPosition="right"
                     defaultActiveKey="book">

@@ -1,12 +1,29 @@
 .upload-tabs {
     display: flex;
-    * {
+    .ant-tabs-bar {
+        background-color: #fff;
+        border-radius: 4px
+    }
+    .ant-tabs-content {
         background-color: #fff;
         border-radius: 4px
     }
 
    .ant-tabs-right-bar {
         width: 320px !important;
+        display: flex;
+        flex-direction: column;
+        border-left: unset;
+        border-right: unset;
+        :first-child {
+            order: 2
+        }
+
+        .ant-tabs-extra-content > div {
+            margin: 8px;
+            font-weight: 500;
+            background-color: #f0f2f5 !important;
+        }
     }
 
     .ant-tabs .ant-tabs-right-bar {
@@ -23,4 +40,8 @@
     .upload-movie{
 
     }
+}
+
+.tab-header {
+    text-align: center;
 }

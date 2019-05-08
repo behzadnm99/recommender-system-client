@@ -45,6 +45,10 @@
   font-size: medium !important;
 }
 
+.ant-input-affix-wrapper .ant-input-prefix {
+  left: unset !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
