@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Layout, Menu, Icon, Button, Modal, Form } from 'antd';
 import LoginForm from './components/login';
 import SignupForm from './components/signup';
+import {Link} from 'react-router-dom'
 
 import './index.scss';
 
@@ -49,7 +50,10 @@ export default class AppHeader extends Component {
         return(
             <div>
                 <Header className="app-header">
-                    <Button icon="user" shape="round" onClick={this.showLoginModal}>ورود</Button>
+                    <div>
+                        <Button icon="plus" type="link"><Link to={'/upload/book'}></Link></Button>
+                        <Button icon="user" shape="round" onClick={this.showLoginModal}>ورود</Button>
+                    </div>
                     <h3 className="header-text">
                         Recommender
                     </h3>

@@ -15,6 +15,13 @@ const TabHeader = () => {
 }
 
 class Upload extends Component {
+    
+    componentDidMount() {
+        this.state = {
+            files: []
+        }
+    }
+
     render() {
         return(
             <div>
@@ -22,7 +29,7 @@ class Upload extends Component {
                     tabBarExtraContent={<TabHeader/>}
                     className="upload-tabs"
                     tabPosition="right"
-                    defaultActiveKey="book">
+                    defaultActiveKey={this.props.match.params.tab}>
                     <TabPane
                         className="upload-book"
                         tab="کتاب"

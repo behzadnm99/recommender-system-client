@@ -6,10 +6,18 @@
 }
 
 .upload-book-divider {
-    width: 280px
+    width: 320px
 }
 
 .dropbox {
     height: 180px;
     line-height: 1.5;
+}
+
+.ant-upload-drag-icon {
+    text-align: center;
+}
+
+.ant-upload-text {
+    text-align: center;
 }

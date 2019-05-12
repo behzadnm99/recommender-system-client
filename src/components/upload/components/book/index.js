@@ -1,16 +1,26 @@
 import React,{Component} from 'react';
 import './index.scss'
-import { Form, Icon, Input, Button, Slider, Upload } from 'antd';
+import { Form, Icon, Input, Button, Slider, Upload, message } from 'antd';
 
 const { TextArea } = Input;
 
 class Book extends Component {
 
-    componentDidMount() {
+    state = {
+      fileList: [],
+      uploading: false,
+    }
 
+    normFile = (e) => {
+      console.log('Upload event:', e);
+      if (Array.isArray(e)) {
+        return e;
+      }
+      return e && e.fileList;
     }
 
     handleSubmit = (e) => {
+      console.log(this.state)
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
         if (!err) {
@@ -18,10 +28,29 @@ class Book extends Component {
         }
       });
     }
-
+  
     render() {
         const {getFieldDecorator} = this.props.form;
-
+        const {fileList} = this.state;
+        const props = {
+          onRemove: (file) => {
+            this.setState((state) => {
+              const index = state.fileList.indexOf(file);
+              const newFileList = state.fileList.slice();
+              newFileList.splice(index, 1);
+              return {
+                fileList: newFileList,
+              };
+            });
+          },
+          beforeUpload: (file) => {
+            this.setState(state => ({
+              fileList: [...state.fileList, file],
+            }));
+            return false;
+          },
+          fileList,
+        };
         return(
             <div>
                 <h2 className="upload-book-header">اگر کتابی خوندی که دوست اونو به بقیه معرفی کنی اینجا جاشه.</h2>
@@ -56,8 +85,9 @@ class Book extends Component {
                                                 <h4>نمره شما (از ۱۰۰)</h4>
                         {getFieldDecorator('stars', {
                           rules: [{ required: true, message: '' }],
+                          initialValue: 30
                         })(
-                          <Slider pref defaultValue={30}/>
+                          <Slider pref />
                         )}
                       </Form.Item>
                       <Form.Item
@@ -76,24 +106,20 @@ class Book extends Component {
                           <Input prefix={<Icon type="book" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="ژانر کتاب" />
                         )}
                       </Form.Item>
-                      <Form.Item
-                        label="Dragger"
-                      >
-                        <div className="dropbox">
-                          {getFieldDecorator('dragger', {
-                            valuePropName: 'fileList',
-                            getValueFromEvent: this.normFile,
-                          })(
-                            <Upload.Dragger name="files" action="/upload.do">
-                              <p className="ant-upload-drag-icon">
-                                <Icon type="inbox" />
-                              </p>
-                              <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                              <p className="ant-upload-hint">Support for a single or bulk upload.</p>
-                            </Upload.Dragger>
-                          )}
-                        </div>
+                      
+                      <Form.Item>
+                        {getFieldDecorator('upload', {
+                          valuePropName: 'fileList',
+                          getValueFromEvent: this.normFile,
+                        })(
+                          <Upload {...props}>
+                            <Button>
+                              <Icon type="upload" /> بارگذاری تصویر
+                            </Button>
+                          </Upload>,
+                        )}
                       </Form.Item>
+
                       <Form.Item>
                         <Button
                           type="primary"

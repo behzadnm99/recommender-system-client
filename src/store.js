@@ -4,6 +4,7 @@ import createSagaMiddleware from 'redux-saga';
 import { all, fork } from 'redux-saga/effects';
 import { loginReducers, signupReducers } from './components/header/reducers';
 import watchAllHeaderActions from './components/header/sagas';
+import watchAllAddActions from './components/upload/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -21,7 +22,8 @@ export default createStore(
 
 function* watchAll() {
     yield all([
-        fork(watchAllHeaderActions)
+        fork(watchAllHeaderActions),
+        fork(watchAllAddActions)
     ])
 }
 sagaMiddleware.run(watchAll);

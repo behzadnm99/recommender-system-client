@@ -10,11 +10,12 @@
 }
 
 .app-layout {
-  height: fit-content;
+  height: 100%;
 }
 
 .main-row {
   height: 100% !important;
+  min-height: -webkit-fill-available;
 }
 
 .App-header {

@@ -1,5 +1,5 @@
 body {
-  height: fit-content;
+  height: fit-content !important;
   margin: 0;
   padding: 0;
   font-family: Vazir !important;

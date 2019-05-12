@@ -1,0 +1,9 @@
+export const ADD_BOOK = 'ADD_BOOK';
+export const ADD_BOOK_REQUEST = 'ADD_BOOK_REQUEST';
+export const ADD_BOOK_SUCCESS = 'ADD_BOOK_SUCCESS';
+export const ADD_BOOK_FAILURE = 'ADD_BOOK_FAILURE';
+
+export const ADD_MOVIE = 'ADD_MOVIE';
+export const ADD_MOVIE_REQUEST = 'ADD_MOVIE_REQUEST';
+export const ADD_MOVIE_SUCCESS = 'ADD_MOVIE_SUCCESS';
+export const ADD_MOVIE_FAILURE = 'ADD_MOVIE_FAILURE';
