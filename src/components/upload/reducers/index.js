@@ -1,0 +1,1 @@
+export {default as addBookReducers} from './book';

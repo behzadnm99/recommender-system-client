@@ -6,81 +6,37 @@ const configs = config.server.api
 axios.defaults.baseURL = configs.url;
 axios.defaults.timeout = configs.timeout;
 
-axios.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
-  let config = err.config;
-  // If config does not exist or the retry option is not set, reject
-  if (!config || !config.retry) return Promise.reject(err);
+export default async option => {
 
-  // Set the variable for keeping track of the retry count
-  config.__retryCount = config.__retryCount || 0;
-
-  if (config.__retryCount >= config.retry) {
-    // Reject with the error
-    return Promise.reject(err);
-  }
-
-  // Increase the retry count
-  config.__retryCount += 1;
-
-  // Create new promise to handle exponential backoff
-  let backoff = new Promise(function(resolve) {
-    setTimeout(function() {
-      resolve();
-    }, config.retryDelay || 1);
-  });
-
-  // Return the promise in which recalls axios to retry the request
-  return backoff.then(function() {
-    return axios(config);
-  });
-});
-
-export default async config => {
-  const options = Object.assign(
-    {},
-    {
-      url: undefined,
-      method: undefined,
-      data: {},
-      headers: {},
-      isLogged: false,
-      cancelToken: undefined,
-      formData: false
-    },
-    config
-  );
-
-  if (options.isLogged) {
-    options.headers.Authorization = localStorage.getItem('token') || '';
-  }
-
-  const request = {
-    ...options,
-    retry: 0,
-    retryDelay: 1000,
-    headers: {
-      ...options.headers,
-      'Content-Type': options.formData
-        ? 'multipart/form-data'
-        : 'application/json;charset=utf-8'
+    const options = Object.assign(
+        {},
+        {
+          url: undefined,
+          method: undefined,
+          data: {},
+          headers: {},
+          formData: false
+        },
+        option
+    );
+    options.headers.authorization = 'Token ' + localStorage.getItem('token') || '';
+    const request = {
+        ...options,
+        headers: {
+            ...options.headers
+        }
     }
-  };
-
-  try {
-    const response = await axios(request);
-
-    return response;
-  } catch (error) {
-    if (Object.is(error.message, 'Request failed with status code 401')) {
-      localStorage.clear();
-      window.location.assign('/signin');
+    try {
+        const response = await axios(request);
+        return response;
+    } catch(err) {
+      if( err.response && (err.response.data.Message === "invalid or expired jwt" || err.response.data.Message === "missing or malformed jwt")){
+            localStorage.clear()
+            window.location.assign('/')
+        } if (err.response){
+          throw err.response.data.Message
+        } else {
+          throw 'probably network err or 301 error'
+        }
     }
-
-    if (axios.isCancel(error)) {
-      console.log('Request canceled', error.message);
-      throw error;
-    } else {
-      throw error;
-    }
-  }
-};
+}

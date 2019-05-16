@@ -24,7 +24,7 @@ class Book extends Component {
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
+          this.props.addBookReq(values);
         }
       });
     }
@@ -109,7 +109,6 @@ class Book extends Component {
                       
                       <Form.Item>
                         {getFieldDecorator('upload', {
-                          valuePropName: 'fileList',
                           getValueFromEvent: this.normFile,
                         })(
                           <Upload {...props}>

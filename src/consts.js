@@ -1,7 +1,7 @@
 export default {
     server: {
         api: {
-            url: process.env.REACT_APP_API_URL,
+            url: 'http://localhost:5000/api/',
             timeout: process.env.REACT_APP_API_TIMEOUT
         }
     }

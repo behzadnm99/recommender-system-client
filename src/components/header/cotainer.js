@@ -3,13 +3,13 @@ import AppHeader from './index';
 import {loginRequest, signupRequest} from './actions/index';
 
 const mapStateToProps = (state, ownProps) => ({
-    ...state.forms.login,
+    login: state.forms.login,
     signup: state.forms.signup
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    onLoginRequest: data => dispatch(loginRequest(data)),
-    onSignupRequest: data => dispatch(signupRequest(data))
+    onLoginReq: data => dispatch(loginRequest(data)),
+    onSignupReq: data => dispatch(signupRequest(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps,null, {forwardRef: true})(AppHeader);

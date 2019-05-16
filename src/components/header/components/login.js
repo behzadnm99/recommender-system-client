@@ -7,21 +7,18 @@ class Login extends Component {
     
     constructor(props) {
       super(props);
-      console.log(props)
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
-            this.props.onLoginRequest(values);
+            this.props.onLoginReq(values);
           }
         });
     }
 
     handleSignupClick = () => {
-      // console.log(this.props.signupModalRef)
       this.props.loginModalRef.current.props.onCancel();
       this.props.signupModalRef.current.props.onCancel();
     }
