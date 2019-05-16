@@ -3,7 +3,7 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { all, fork } from 'redux-saga/effects';
 import { loginReducers, signupReducers } from './components/header/reducers';
-import { addBookReducers } from './components/upload/reducers/index';
+import { addBookReducers, addMovieRducers } from './components/upload/reducers/index';
 
 import watchAllHeaderActions from './components/header/sagas';
 import watchAllAddActions from './components/upload/sagas';
@@ -17,7 +17,8 @@ export default createStore(
         forms: combineReducers({
             login: loginReducers,
             signup: signupReducers,
-            addBook: addBookReducers
+            addBook: addBookReducers,
+            addMovie: addMovieRducers
         })
     }),
     applyMiddleware(...middleware)
@@ -28,5 +29,5 @@ function* watchAll() {
         fork(watchAllHeaderActions),
         fork(watchAllAddActions)
     ])
-}
+}   
 sagaMiddleware.run(watchAll);
