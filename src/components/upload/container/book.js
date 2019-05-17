@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import BookForm from '../components/book';
-import { addBookRequest } from '../actions/index';
+import { addBookRequest } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
     addBook: state.forms.addBook

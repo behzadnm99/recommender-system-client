@@ -4,7 +4,8 @@ import { Layout, Row, Col } from 'antd'
 import Header from '../components/header/cotainer';
 import AppMenu from '../components/menu';
 import Books from '../components/books';
-import Upload from '../components/upload/index';
+import Upload from '../components/upload';
+import Home from '../components/home';
 import axios from 'axios';
 import { USER_CURRENT } from '../routes';
 
@@ -31,7 +32,7 @@ export default class AppRouter extends Component {
                         <Col className="main-column" style={{paddingTop: 96,  }} lg={16} xl={16} md={20}  xs={22} sm={22}>
             
                             <Switch>
-                                <Route exact component={Books} path={'/'} />
+                                <Route exact component={Home} path={'/'} />
                                 <Route exact component={Upload} path={'/upload/:tab'} />
                             </Switch>
                         </Col>
