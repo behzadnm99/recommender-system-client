@@ -19,7 +19,10 @@ export default async option => {
         },
         option
     );
-    options.headers.authorization = 'Token ' + localStorage.getItem('token') || '';
+    const hasToken = localStorage.getItem('hasToken');
+    if(hasToken == "true") {
+      options.headers.authorization = 'Token ' + localStorage.getItem('token') || '';
+    }
     const request = {
         ...options,
         headers: {

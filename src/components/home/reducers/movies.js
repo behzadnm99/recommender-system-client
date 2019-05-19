@@ -21,7 +21,8 @@ export default (state = moviesDefaultState, action) => {
         }
         case MOVIES_GET_SUCCESSFULL: {
             return {
-                ...moviesDefaultState,
+                ...state,
+                isLoading: false,
                 isSuccess: true,
                 data: action.payload,
             }
@@ -36,12 +37,12 @@ export default (state = moviesDefaultState, action) => {
         }
         case MOVIES_GET: {
             return {
-                ...moviesDefaultState
+                ...state
             }
         }
         default:
             return {
-                ...moviesDefaultState
+                ...state
             }
     }
 }

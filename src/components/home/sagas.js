@@ -7,20 +7,33 @@ import {
     moviesFailure,
     moviesSuccessfull
 } from './actions';
+import {
+    BOOKS_GET_ALL,
+    MOVIES_GET_ALL
+} from '../../routes';
+
 
 function* getBooks(action) {
     try {
-
+        const response = yield call(fetcher, {
+            url: BOOKS_GET_ALL + `?page=${1}&limit=${8}`,
+            method: 'get'
+        })
+        yield put(booksSuccessfull(response));
     } catch(err) {
-
+        yield put(booksFailure(err));
     }
 }
 
 function* getMovies(action) {
     try {
-
+        const response = yield call(fetcher, {
+            url: MOVIES_GET_ALL + `?page=${1}&limit=${8}`,
+            method: 'get'
+        })
+        yield put(moviesSuccessfull(response))
     } catch(err) {
-        
+        yield put(moviesFailure(err));
     }
 }
 

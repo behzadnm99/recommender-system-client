@@ -5,7 +5,7 @@ import Header from '../components/header/cotainer';
 import AppMenu from '../components/menu';
 import Books from '../components/books';
 import Upload from '../components/upload';
-import Home from '../components/home';
+import Home from '../components/home/cotainer';
 import axios from 'axios';
 import { USER_CURRENT } from '../routes';
 

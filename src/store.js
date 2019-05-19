@@ -1,6 +1,7 @@
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
+import { batchDispatchMiddleware } from 'redux-batched-actions';
 import { all, fork } from 'redux-saga/effects';
 import { loginReducers, signupReducers } from './components/header/reducers';
 import { addBookReducers, addMovieRducers } from './components/upload/reducers';
@@ -12,7 +13,7 @@ import watchAllHomeActions from './components/home/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
-let middleware = [sagaMiddleware, logger];
+let middleware = [sagaMiddleware, logger, batchDispatchMiddleware];
 
 export default createStore(
     combineReducers({
@@ -22,9 +23,9 @@ export default createStore(
             addBook: addBookReducers,
             addMovie: addMovieRducers
         }),
-        books: combineReducers({
-            homeBooks:booksReducers,
-            homeMovies: moviesReducers
+        home: combineReducers({
+            books: booksReducers,
+            movies: moviesReducers
         })
     }),
     applyMiddleware(...middleware)

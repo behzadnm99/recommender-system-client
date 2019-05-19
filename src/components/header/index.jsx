@@ -20,7 +20,6 @@ export default class AppHeader extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.login.isSuccess) {
-            console.log(nextProps.login)
             localStorage.setItem('token', nextProps.login.data.data.user.token);
             localStorage.setItem('hasToken', true);
             localStorage.setItem('username', nextProps.login.data.data.user.username);
@@ -60,7 +59,6 @@ export default class AppHeader extends Component {
 
         return(
             <div>
-                {console.log(this.state.isAuthenticated)}
                 <Header className="app-header">
                     <div>
                         <Button className="upload-page-btn"><Link to={'/upload/book'}>بارگذاری</Link></Button>

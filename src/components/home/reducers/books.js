@@ -21,7 +21,8 @@ export default (state = booksDefaultState, action) => {
         }
         case BOOKS_GET_SUCCESSFULL: {
             return {
-                ...booksDefaultState,
+                ...state,
+                isLoading: false,
                 isSuccess: true,
                 data: action.payload,
             }
@@ -36,12 +37,12 @@ export default (state = booksDefaultState, action) => {
         }
         case BOOKS_GET: {
             return {
-                ...booksDefaultState
+                ...state
             }
         }
         default:
             return {
-                ...booksDefaultState
+                ...state
             }
     }
 }

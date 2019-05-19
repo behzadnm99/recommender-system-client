@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
-import MoviesContainer from './containers/movies';
-import BooksContainer from './containers/books';
+import MoviesComponent from './components/movies';
+import BooksComponent from './components/books';
 
 export default class Home extends Component {
+
     render() {
-        return(
+        return (
             <div>
-                <BooksContainer/>
-                <MoviesContainer/>
+                <BooksComponent booksReq={this.props.booksReq} books={this.props.books}/>
+                <MoviesComponent moviesReq={this.props.moviesReq} movies={this.props.movies}/>
             </div>
         )
     }
-}
+}   

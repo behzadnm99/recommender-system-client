@@ -10,7 +10,7 @@ export const BOOKS_ADD = '/books/add/';
 export const BOOKS_REMOVE = '/books/';
 export const BOOKS_EDIT = '/books/';
 
-export const MOVIES_GET_ALL = '/movies/get/all';
+export const MOVIES_GET_ALL = '/movies/get/all/';
 export const MOVIES_GET_BY_ID = '/movies/get/';
 export const MOVIES_ADD = '/movies/add';
 export const MOVIES_REMOVE = '/movies/';
