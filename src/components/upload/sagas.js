@@ -18,7 +18,8 @@ function* _addBook(action) {
         const response = yield call(fetcher, {
             url: BOOKS_ADD,
             method: 'post',
-            data: {book: action.payload}
+            data: action.payload,
+            formData: true
         });
         yield put(addBookSuccess(response))
     } catch(err) {

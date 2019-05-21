@@ -1,4 +1,4 @@
-export const USER_SINGUP = '/users/';
+export const USER_SINGUP = '/users/add';
 export const USER_LOGIN = '/users/login/';
 export const USER_CURRENT = '/users/current/';
 export const USER_REMOVE = '/users/';

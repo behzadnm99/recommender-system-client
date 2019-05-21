@@ -20,11 +20,16 @@ class Book extends Component {
     }
 
     handleSubmit = (e) => {
-      console.log(this.state)
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
         if (!err) {
-          this.props.addBookReq(values);
+          const formData = new FormData();
+          formData.append('name', values.name);
+          formData.append('description', values.description);
+          formData.append('writer', values.writer);
+          formData.append('stars', values.stars);
+          formData.append('cover', this.state.fileList[0]);
+          this.props.addBookReq(formData);
         }
       });
     }

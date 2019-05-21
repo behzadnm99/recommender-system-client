@@ -7,7 +7,6 @@ axios.defaults.baseURL = configs.url;
 axios.defaults.timeout = configs.timeout;
 
 export default async option => {
-
     const options = Object.assign(
         {},
         {
@@ -26,9 +25,15 @@ export default async option => {
     const request = {
         ...options,
         headers: {
-            ...options.headers
+          ...options.headers,
+          'Content-Type': options.formData
+            ? 'multipart/form-data'
+            : 'application/json;charset=utf-8'
         }
     }
+
+    console.log(request)
+
     try {
         const response = await axios(request);
         return response;

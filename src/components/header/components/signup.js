@@ -8,7 +8,6 @@ class Signup extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
             this.props.onSignupReq(values);
           }
         });
@@ -50,7 +49,7 @@ class Signup extends Component {
                     type="primary"
                     htmlType="submit"
                   >
-                    ثبت‌نام
+                    ثبت نام
                   </Button>
                 </Form.Item>
               </Form>

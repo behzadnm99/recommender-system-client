@@ -13,16 +13,19 @@ export default class AppHeader extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { loginModalVisible: false, signupModalVisible: false,  isAuthenticated: localStorage.getItem('isAuthenticated')}
+        this.state = { loginModalVisible: false, signupModalVisible: false,  username: localStorage.getItem('username')}
         this.loginModalRef = React.createRef();
         this.signupModalRef = React.createRef();
     }
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.login.isSuccess) {
-            localStorage.setItem('token', nextProps.login.data.data.user.token);
+            console.log('in if')
+            const {data} = nextProps.login;
+            localStorage.setItem('token', data.data.user.token);
             localStorage.setItem('hasToken', true);
-            localStorage.setItem('username', nextProps.login.data.data.user.username);
+            localStorage.setItem('username', data.data.user.username);
+            this.setState({username: data.data.user.username});
             window.location.reload();
         }
     }
@@ -62,7 +65,7 @@ export default class AppHeader extends Component {
                 <Header className="app-header">
                     <div>
                         <Button className="upload-page-btn"><Link to={'/upload/book'}>بارگذاری</Link></Button>
-                        {this.state.isAuthenticated == "true" ? 
+                        {this.state.username ? 
                             <Dropdown
                                 overlay={popoverContent}>
                                 <Button shape="round">

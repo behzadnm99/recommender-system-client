@@ -18,7 +18,6 @@ export default class Books extends Component {
     
     render() {
       const {isLoading, isSuccess, hasError, data} = this.props.books;
-      console.log(isSuccess)
 
       if(isLoading) {
         return(
