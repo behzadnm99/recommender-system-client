@@ -32,7 +32,8 @@ function* _addMovie(action) {
         const response = yield call(fetcher, {
             url: MOVIES_ADD,
             method: 'post',
-            data: {movie: action.payload}
+            data: action.payload,
+            formData: true
         });
         yield put(addMovieSuccess(response))
     } catch(err) {

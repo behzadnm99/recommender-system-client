@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import './index.scss'
 import { Form, Icon, Input, Button, Slider, Upload } from 'antd';
-
+import lodash from 'lodash';
 const { TextArea } = Input;
 
 class Movie extends Component {
@@ -12,7 +12,6 @@ class Movie extends Component {
     }
 
     normFile = (e) => {
-      console.log('Upload event:', e);
       if (Array.isArray(e)) {
         return e;
       }
@@ -23,8 +22,12 @@ class Movie extends Component {
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
-          this.props.addMovieReq(values);
+          const formData = new FormData();
+          lodash.mapKeys(values, (value, key) => {
+            formData.append(key, value);
+          })
+          formData.append('cover', this.state.fileList[0]);
+          this.props.addMovieReq(formData);
         }
       });
     }
@@ -53,9 +56,10 @@ class Movie extends Component {
         };
 
         return(
-            <div>
+            <div className="upload-movie-container">
                 <h2 className="upload-movie-header">اگر فیلمی دیدی که دوست اونو به بقیه معرفی کنی اینجا جاشه.</h2>
                 <div className="upload-movie-divider">
+                    {/* <div className="upload-movie-cover">asd</div> */}
                     <Form onSubmit={this.handleSubmit}>
                       <Form.Item
                       >
@@ -86,8 +90,9 @@ class Movie extends Component {
                                                 <h4>نمره شما (از ۱۰۰)</h4>
                         {getFieldDecorator('stars', {
                           rules: [{ required: true, message: '' }],
+                          initialValue: 30,
                         })(
-                          <Slider pref defaultValue={30}/>
+                          <Slider pref/>
                         )}
                       </Form.Item>
                       <Form.Item
@@ -109,7 +114,6 @@ class Movie extends Component {
 
                       <Form.Item>
                         {getFieldDecorator('upload', {
-                          valuePropName: 'fileList',
                           getValueFromEvent: this.normFile,
                         })(
                           <Upload {...props}>

@@ -10,21 +10,16 @@ export default class AppMenu extends Component {
             <div>
                 <Menu 
                     className="app-menu" 
-                    mode="horizontal">
-                    <Menu.Item key="user">
-                        <Icon type="user" />
-                        profile
-                    </Menu.Item>
-                    
+                    mode="horizontal">                    
                     <Menu.Item key="movies">
                         <Icon type="video-camera" />
-                        movies
+                        فیلم‌ها
                     </Menu.Item>
                     
                     <Menu.Item key="books">
                         <Link to={'/books'}>
                             <Icon type="book" />
-                            books
+                            کتاب‌ها
                         </Link>
                     </Menu.Item>
                 </Menu>
