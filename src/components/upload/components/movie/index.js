@@ -20,6 +20,10 @@ class Movie extends Component {
       });
     }
 
+    resizer = (from, to) => {
+      return pica().resize(from, to, {quality: 3});
+    }
+
     render() {
         const {getFieldDecorator} = this.props.form;
         const {isLoading} = this.props.addMovie;

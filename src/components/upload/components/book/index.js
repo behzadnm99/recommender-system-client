@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import { Form, Icon, Input, Button, Slider, Spin, Modal } from 'antd';
 import CropViewer from 'rc-cropping';
 import pica from 'pica';
+import lodash from 'lodash';
 
 import 'rc-cropping/assets/index.css';
 
@@ -17,18 +18,15 @@ class Book extends Component {
         console.log(values)
         if (!err) {
           const formData = new FormData();
-          formData.append('name', values.name);
-          formData.append('description', values.description);
-          formData.append('writer', values.writer);
-          formData.append('stars', values.stars);
-          formData.append('cover', values.upload);
+          lodash.mapKeys(values, (value, key) => {
+            formData.append(key, value);
+          })
           this.props.addBookReq(formData);
         }
       });
     }
 
     resizer = (from, to) => {
-      console.log('>> pica resizer', from, to);
       return pica().resize(from, to, {quality: 3});
     }
   
