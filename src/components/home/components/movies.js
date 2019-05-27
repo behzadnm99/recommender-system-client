@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {List, Card, Skeleton} from 'antd';
-import BookCard from './book';
+import MovieCard from './movie';
+import config from '../../../consts';
 
 export default class Movies extends Component {
 
@@ -26,10 +27,22 @@ export default class Movies extends Component {
           <div>error</div>
         )
       }
-      else if (isSuccess){
-        return(<div>
-          <List/>
-        </div>)
+      else if(isSuccess){
+        return(
+          <div>
+            <List
+              grid={{gutter:12,
+              lg:4,
+              xxl:5,
+              xl:5}}
+              dataSource={data.data.data}
+              renderItem={item => (
+                <List.Item>
+                  <MovieCard genres={item.genres} coverSrc={`${config.server.s3.url}movies-img/${item.coverName}`} title={item.name} description={item.description}/>
+                </List.Item>
+              )}/>
+          </div>
+        ) 
       }
       else {
         return(
