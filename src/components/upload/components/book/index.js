@@ -1,72 +1,53 @@
 import React,{Component} from 'react';
+import { Form, Icon, Input, Button, Slider, Spin, Modal } from 'antd';
+import CropViewer from 'rc-cropping';
+import pica from 'pica';
+
+import 'rc-cropping/assets/index.css';
+
 import './index.scss'
-import { Form, Icon, Input, Button, Slider, Upload, message } from 'antd';
 
 const { TextArea } = Input;
 
 class Book extends Component {
 
-    state = {
-      fileList: [],
-      uploading: false,
-    }
-
-    normFile = (e) => {
-      console.log('Upload event:', e);
-      if (Array.isArray(e)) {
-        return e;
-      }
-      return e && e.fileList;
-    }
-
     handleSubmit = (e) => {
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
+        console.log(values)
         if (!err) {
           const formData = new FormData();
           formData.append('name', values.name);
           formData.append('description', values.description);
           formData.append('writer', values.writer);
           formData.append('stars', values.stars);
-          formData.append('cover', this.state.fileList[0]);
+          formData.append('cover', values.upload);
           this.props.addBookReq(formData);
         }
       });
     }
+
+    resizer = (from, to) => {
+      console.log('>> pica resizer', from, to);
+      return pica().resize(from, to, {quality: 3});
+    }
   
     render() {
-        const {getFieldDecorator} = this.props.form;
-        const {fileList} = this.state;
-        const props = {
-          onRemove: (file) => {
-            this.setState((state) => {
-              const index = state.fileList.indexOf(file);
-              const newFileList = state.fileList.slice();
-              newFileList.splice(index, 1);
-              return {
-                fileList: newFileList,
-              };
-            });
-          },
-          beforeUpload: (file) => {
-            this.setState(state => ({
-              fileList: [...state.fileList, file],
-            }));
-            return false;
-          },
-          fileList,
-        };
+        const {getFieldDecorator} = this.props.form;        
+        const {isLoading} = this.props.addBook;
+
         return(
             <div>
                 <h2 className="upload-book-header">اگر کتابی خوندی که دوست اونو به بقیه معرفی کنی اینجا جاشه.</h2>
                 <div className="upload-book-divider">
-                    <Form onSubmit={this.handleSubmit}>
+                    <Form 
+                      onSubmit={this.handleSubmit}>
                       <Form.Item
                       >
                         {getFieldDecorator('name', {
                           rules: [{ required: true, message: 'وارد کردن نام کتاب ضروری است.' }],
                         })(
-                          <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="عنوان" />
+                          <Input disabled={isLoading} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="عنوان" />
                         )}
                       </Form.Item>
                       <Form.Item
@@ -74,7 +55,7 @@ class Book extends Component {
                         {getFieldDecorator('description', {
                           rules: [{ required: true, message: 'وارد کردن توضیحات ضروری است.' }],
                         })(
-                          <TextArea rows={4} prefix={<Icon type="book" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="هر توضیحی که به انتقال تجربتون کمک می‌کنه بنویسین." />
+                          <TextArea disabled={isLoading} rows={4} prefix={<Icon type="book" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="هر توضیحی که به انتقال تجربتون کمک می‌کنه بنویسین." />
                         )}
                       </Form.Item>
                       <Form.Item
@@ -82,7 +63,7 @@ class Book extends Component {
                         {getFieldDecorator('writer', {
                           rules: [{ required: true, message: 'وارد کردن نام نویسنده ضروری است.' }],
                         })(
-                          <Input prefix={<Icon type="book" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="نام نویسنده" />
+                          <Input disabled={isLoading} prefix={<Icon type="book" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="نام نویسنده" />
                         )}
                       </Form.Item>
                       <Form.Item
@@ -92,7 +73,7 @@ class Book extends Component {
                           rules: [{ required: true, message: '' }],
                           initialValue: 30
                         })(
-                          <Slider pref />
+                          <Slider disabled={isLoading} pref />
                         )}
                       </Form.Item>
                       <Form.Item
@@ -100,7 +81,7 @@ class Book extends Component {
                         {getFieldDecorator('translator', {
                           rules: [{ required: false, message: 'نام متجرم' }],
                         })(
-                          <Input prefix={<Icon type="book" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="نام مترجم" />
+                          <Input disabled={isLoading} prefix={<Icon type="book" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="نام مترجم" />
                         )}
                       </Form.Item>
                       <Form.Item
@@ -108,24 +89,29 @@ class Book extends Component {
                         {getFieldDecorator('password', {
                           rules: [{ required: false, message: '' }],
                         })(
-                          <Input prefix={<Icon type="book" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="ژانر کتاب" />
+                          <Input disabled={isLoading} prefix={<Icon type="book" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="ژانر کتاب" />
                         )}
                       </Form.Item>
                       
                       <Form.Item>
                         {getFieldDecorator('upload', {
-                          getValueFromEvent: this.normFile,
+                          rules: [{required: true, message: 'بدون انتخاب کارو امکان پیشنهاد دادن نیست.'}],
                         })(
-                          <Upload {...props}>
-                            <Button>
-                              <Icon type="upload" /> بارگذاری تصویر
-                            </Button>
-                          </Upload>,
+                          <CropViewer
+                          disabled={isLoading}
+                          resizer={this.resizer}
+                          size={[160, 210]}
+                          thumbnailSizes={[[160,210]]}
+                          getSpinContent={() => <Spin /> }
+                          renderModal={() => <Modal />}
+                          fileType="image/jpeg"
+                          accept="image/gif,image/jpeg,image/png,image/bmp,image/x-png,image/pjpeg"
+                        >انتخاب کاور</CropViewer>                        
                         )}
                       </Form.Item>
-
                       <Form.Item>
                         <Button
+                          disabled={isLoading}
                           type="primary"
                           htmlType="submit"
                         >

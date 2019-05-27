@@ -1,23 +1,12 @@
 import React,{Component} from 'react';
 import './index.scss'
-import { Form, Icon, Input, Button, Slider, Upload } from 'antd';
+import { Form, Icon, Input, Button, Slider, Spin, Modal } from 'antd';
+import CropViewer from 'rc-cropping';
+import pica from 'pica';
 import lodash from 'lodash';
 const { TextArea } = Input;
 
 class Movie extends Component {
-
-    state = {
-      fileList: [],
-      uploading: false,
-    }
-
-    normFile = (e) => {
-      if (Array.isArray(e)) {
-        return e;
-      }
-      return e && e.fileList;
-    }
-
     handleSubmit = (e) => {
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
@@ -26,7 +15,6 @@ class Movie extends Component {
           lodash.mapKeys(values, (value, key) => {
             formData.append(key, value);
           })
-          formData.append('cover', this.state.fileList[0]);
           this.props.addMovieReq(formData);
         }
       });
@@ -34,26 +22,7 @@ class Movie extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {fileList} = this.state;
-        const props = {
-          onRemove: (file) => {
-            this.setState((state) => {
-              const index = state.fileList.indexOf(file);
-              const newFileList = state.fileList.slice();
-              newFileList.splice(index, 1);
-              return {
-                fileList: newFileList,
-              };
-            });
-          },
-          beforeUpload: (file) => {
-            this.setState(state => ({
-              fileList: [...state.fileList, file],
-            }));
-            return false;
-          },
-          fileList,
-        };
+        const {isLoading} = this.props.addMovie;
 
         return(
             <div className="upload-movie-container">
@@ -113,14 +82,19 @@ class Movie extends Component {
                       </Form.Item>
 
                       <Form.Item>
-                        {getFieldDecorator('upload', {
-                          getValueFromEvent: this.normFile,
+                        {getFieldDecorator('cover', {
+                          rules: [{required: true, message: 'بدون انتخاب کارو امکان پیشنهاد دادن نیست.'}],
                         })(
-                          <Upload {...props}>
-                            <Button>
-                              <Icon type="upload" /> بارگذاری تصویر
-                            </Button>
-                          </Upload>,
+                          <CropViewer
+                          disabled={isLoading}
+                          resizer={this.resizer}
+                          size={[160, 210]}
+                          thumbnailSizes={[[160,210]]}
+                          getSpinContent={() => <Spin /> }
+                          renderModal={() => <Modal />}
+                          fileType="image/jpeg"
+                          accept="image/gif,image/jpeg,image/png,image/bmp,image/x-png,image/pjpeg"
+                        >انتخاب کاور</CropViewer>                        
                         )}
                       </Form.Item>
 

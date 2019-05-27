@@ -21,3 +21,32 @@
 .ant-upload-text {
     text-align: center;
 }
+
+.crop-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .controls {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    left: 0%;
+    width: 100%;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .ant-slider {
+        width: inherit;
+    }
+  }
+  
+  .ant-slider {
+    padding: 22px 0px;
+  }
+  
